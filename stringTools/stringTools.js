@@ -19,6 +19,31 @@ function countWords(str) {
 
 console.log(countWords(text))
 
-function countUniqueWords() {
-    return undefined
+function isAlphaNumeric(str) {
+    let code, i, len;
+
+    for (i = 0, len = str.length; i < len; i++) {
+        code = str.charCodeAt(i);
+        if (!(code > 47 && code < 58) && // numeric (0-9)
+            !(code > 64 && code < 91) && // upper alpha (A-Z)
+            !(code > 96 && code < 123)) { // lower alpha (a-z)
+            return false;
+        }
+    }
+    return true;
 }
+
+function countUniqueWords(str) {
+    str = spaceFix(str)
+    const marks = [',', '.', ';', ':', '?', '!']
+    marks.forEach(mark => {
+        str = str.replaceAll(mark, '')
+    })
+
+    let words = str.split(' ')
+    let set = new Set(words);
+    return set.size;
+}
+
+console.log(countUniqueWords(text))
+
